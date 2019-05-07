@@ -9,7 +9,7 @@ source-type=0
 status-id-list-file=/path/to/statusFile
 ```
 
-#### auth.properties
+#### alligator.auth
 ```properties
 #Twitter API Auth keys and options
 consumer-key =
