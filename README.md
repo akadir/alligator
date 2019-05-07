@@ -1,0 +1,3 @@
+# Alligator
+
+Removes favorites.
