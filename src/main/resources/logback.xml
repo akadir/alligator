@@ -12,7 +12,7 @@
     </appender>
 
     <appender name="alligator" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>log/giraffe.log</File>
+        <File>log/alligator.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <totalSizeCap>50MB</totalSizeCap>
             <fileNamePattern>log/old/alligator-%d{yyyy-MM-dd, GMT+3}.log.gz</fileNamePattern>
@@ -24,7 +24,7 @@
 
     <logger name="twitter4j" level="OFF"/>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="stdout"/>
         <appender-ref ref="alligator"/>
     </root>
