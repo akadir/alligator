@@ -8,5 +8,5 @@ import twitter4j.TwitterException;
  * Time: 21:39
  */
 public interface IUnfavoriter {
-    boolean unfavorite(long statusId) throws TwitterException, InterruptedException;
+    boolean unfavorite(long statusId) throws TwitterException;
 }

@@ -24,7 +24,7 @@ public class Unfavoriter implements IUnfavoriter {
     }
 
     @Override
-    public boolean unfavorite(long statusId) throws TwitterException, InterruptedException {
+    public boolean unfavorite(long statusId) throws TwitterException {
         Status status = twitter.showStatus(statusId);
         String statusTextLineBreaksRemoved = status.getText().replaceAll("\\r\\n|\\r|\\n", " ");
         String statusLink = "https://twitter.com/" + status.getUser().getScreenName() + "/status/" + status.getId();

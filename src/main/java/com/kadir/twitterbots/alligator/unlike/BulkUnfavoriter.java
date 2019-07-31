@@ -18,7 +18,8 @@ public class BulkUnfavoriter implements IBulkUnfavoriter {
 
     @Override
     public void unfavorite(List<Long> statusList, IUnfavoriter unfavoriter) {
-        for (Long statusId : statusList) {
+        for (int i = 0; i < statusList.size(); i++) {
+            long statusId = statusList.get(i);
             try {
                 logger.info("Check id: {}", statusId);
                 if (unfavoriter.unfavorite(statusId)) {
@@ -27,12 +28,17 @@ public class BulkUnfavoriter implements IBulkUnfavoriter {
             } catch (TwitterException e) {
                 if (e.getErrorCode() == TwitterErrorCode.STATUS_NOT_FOUND.getValue()) {
                     logger.error("{} id not found", statusId);
+                } else if (e.getErrorCode() == TwitterErrorCode.RATE_LIMIT_EXCEEDED.getValue()) {
+                    logger.error("Rate limit exceeded, wait 30 sc. {}", e.getErrorMessage());
+                    try {
+                        Thread.sleep(30 * 1000L);
+                    } catch (InterruptedException ex) {
+                        logger.error("Thread interrupted: ", ex);
+                        Thread.currentThread().interrupt();
+                    }
                 } else {
-                    logger.error("An error occurred: ", e);
+                    logger.error("An error occurred: {}", e.getErrorMessage());
                 }
-            } catch (InterruptedException e) {
-                logger.error("Thread interrupted: ", e);
-                Thread.currentThread().interrupt();
             }
         }
         logger.info("{} tweets were unfavorited.", unfavoritedCount);
